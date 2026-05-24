@@ -7,7 +7,7 @@ import com.eazybytes.eazystore.service.AIService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/gis/chat")
+@RequestMapping("/api/java/chat")
 @CrossOrigin(origins = "*")
 public class ChatAIController {
 

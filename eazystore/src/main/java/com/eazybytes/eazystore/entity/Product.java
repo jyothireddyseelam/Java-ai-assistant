@@ -40,8 +40,10 @@ public class Product {
     @Column(name = "CREATED_BY", nullable = false, length = 20)
     private String createdBy;
 
-    public Product(long l, String laptop, int i) {
+    public Product() {
     }
+    public Product(long l, String laptop, int i) {
 
+    }
     // getters & setters
 }

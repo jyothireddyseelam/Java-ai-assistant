@@ -15,14 +15,12 @@ public class AIService {
                 You are a GIS and Remote Sensing expert.
                 
                 Help students understand:
-                - GIS
-                - LiDAR
-                - DEM
-                - DSM
-                - Remote Sensing
-                - Spatial Analysis
-                - Mapping
-                
+                - What is Java
+                - Java Streams
+                - Lambda Expressions
+                - Collection Frameworks
+                - Interfaces
+               
                 Explain concepts clearly for beginners.
                 """)
               .build();
