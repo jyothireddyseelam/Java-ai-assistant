@@ -1,5 +1,6 @@
 package com.eazybytes.eazystore.service;
 
+import com.eazybytes.eazystore.dto.ChatResponse;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
 
@@ -29,23 +30,62 @@ public class AIService {
                 .build();
     }
 
-    public String getAnswer(String topic) {
+    public ChatResponse getAnswer(String topic) {
 
         String prompt = """
-                Explain Java %s.
+Explain Java %s.
 
-                Include:
-                1. Definition
-                2. Why it is used
-                3. Simple Example
-                4. Common Interview Question
+Return response in exactly this format.
+Do NOT use markdown.
+Do NOT use ### symbols.
 
-                Keep the explanation beginner friendly.
-                """.formatted(topic);
+Definition: <definition>
 
-        return chatClient.prompt()
+WhyUsed: <why used>
+
+Example: <example>
+
+InterviewQuestion: <question>
+""".formatted(topic);
+
+        String aiResponse = chatClient.prompt()
                 .user(prompt)
                 .call()
                 .content();
+
+        String definition = "";
+        String whyUsed = "";
+        String example = "";
+        String interviewQuestion = "";
+        System.out.println(aiResponse);
+        String[] sections = aiResponse.split("\n\n");
+        for (String section : sections) {
+
+            if (section.startsWith("Definition:")) {
+                definition = section.replace("Definition:", "").trim();
+            }
+
+            else if (section.startsWith("WhyUsed:")) {
+                whyUsed = section.replace("WhyUsed:", "").trim();
+            }
+
+            else if (section.startsWith("Example:")) {
+                example = section.replace("Example:", "").trim();
+            }
+
+            else if (section.startsWith("InterviewQuestion:")) {
+                interviewQuestion =
+                        section.replace("InterviewQuestion:", "").trim();
+            }
+        }
+
+
+
+        return new ChatResponse(
+                definition,
+                whyUsed,
+                example,
+                interviewQuestion
+        );
     }
 }

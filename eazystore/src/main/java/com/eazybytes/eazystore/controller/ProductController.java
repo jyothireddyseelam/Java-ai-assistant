@@ -1,32 +1,30 @@
 package com.eazybytes.eazystore.controller;
 
-import com.eazybytes.eazystore.entity.Product;
+
+import com.eazybytes.eazystore.dto.ProductDto;
 import com.eazybytes.eazystore.service.IProductService;
-
 import lombok.RequiredArgsConstructor;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping("api/v1/products")
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final IProductService productService;
+    private final IProductService iProductService;
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        System.out.println("Testing Code Changes 1");
-        return productService.getAllProducts();
-
+    public ResponseEntity<List<ProductDto>> getProducts() {
+        List<ProductDto> productList = iProductService.getProducts();
+        return ResponseEntity.ok().body(productList);
     }
 
-    @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
 
-        return productService.getProductById(id);
-    }
 }

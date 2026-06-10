@@ -1,5 +1,6 @@
 package com.eazybytes.eazystore.service.impl;
 
+import com.eazybytes.eazystore.dto.ProductDto;
 import com.eazybytes.eazystore.entity.Product;
 import com.eazybytes.eazystore.repository.ProductRepository;
 import com.eazybytes.eazystore.service.IProductService;
@@ -28,5 +29,10 @@ public class ProductServiceImpl implements IProductService {
         return productRepository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("Product not found"));
+    }
+
+    @Override
+    public List<ProductDto> getProducts() {
+        return List.of();
     }
 }
